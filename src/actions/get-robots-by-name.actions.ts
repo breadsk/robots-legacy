@@ -1,6 +1,7 @@
 import type { robotNameProps } from '../interfaces/robots.interfaces';
 
-export const getRobotsByQuery = async(query:string):Promise<robotNameProps> => {
+export const getRobotsByName = async(query:string):Promise<robotNameProps> => {
+    
 
     const encodedName = encodeURIComponent(query).replace(/20%/g,'+');
 

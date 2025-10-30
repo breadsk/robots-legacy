@@ -1,13 +1,37 @@
+import { useEffect, useState , type KeyboardEvent } from 'react';
 import { Navbar, Nav, NavDropdown, Container, Form, Button } from 'react-bootstrap';
 
 interface Props {
-  handleSearch: () => void;
-  handleChange: () => void;
-  handleSearchKeyDown: () => void;
+  onQuery: (query:string) => void;  
 }
 
 
-export const NavBar = ({ handleSearch , handleChange , handleSearchKeyDown }:Props) => {
+export const NavBar = ({ onQuery }:Props) => {
+
+  const [ query , setQuery ] = useState('');
+
+  useEffect(()=> {
+    const timeOutId = setTimeout(()=> {
+      onQuery(query);
+     },2000)
+
+     return () => {
+       clearTimeout(timeOutId);
+     }
+
+  },[query,onQuery])
+
+  const handleSearch = () => {
+    onQuery(query)
+  }
+
+  const handleKeyDown = (event:KeyboardEvent<HTMLInputElement>) => {
+    if(event.key === "Enter"){
+      event.preventDefault();
+      handleSearch();
+    }
+  }
+
   return (
     <Navbar expand="lg" bg="primary" variant="dark">
       <Container fluid>
@@ -30,8 +54,11 @@ export const NavBar = ({ handleSearch , handleChange , handleSearchKeyDown }:Pro
               placeholder="Ingresa un valor"
               className="me-2"
               aria-label="Search"
-              onChange={ handleChange }
-              onKeyDown={ handleSearchKeyDown }
+              value={query}
+              onChange={ (event)=> {
+                setQuery(event.target.value)
+              } }
+              onKeyDown={ handleKeyDown }
             />
             <Button 
               onClick={ handleSearch }

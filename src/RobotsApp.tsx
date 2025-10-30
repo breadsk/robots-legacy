@@ -1,9 +1,9 @@
 
-import { useEffect , useState } from 'react';
+import { useCallback, useEffect , useState } from 'react';
 
 import { NavBar , CardComponent } from './pages/robotsComponents';
 
-import { getRobots } from './actions/get-robots.actions';
+import { getRobots , getRobotsByName } from './actions';
          
 import type { robotsProps } from './interfaces/robots.interfaces';
 
@@ -34,32 +34,36 @@ export const RobotsApp = () => {
 
   },[]);
 
-  const handleSearch = () => {
-    console.log("En onClick");
-  }
+  const handleSearch = useCallback(async(query:string) => {
+    query = query.trim().toLowerCase()
 
-  const handleChange = () => {
-    console.log("En onChange");
-  }
+    if(query.length === 0){
+      setRobots(allRobots);
+      return
+    }
 
-  const handleSearchKeyDown = () => {
-    console.log("En onKeyDown");
-  }
+    try{
 
+      const wantedRobot = await getRobotsByName(query);
+      if(wantedRobot.robot){
+        setRobots([wantedRobot.robot])
+      }
+      return
+
+    }catch(error){
+      console.log(`Error en: ${error}`);
+    }
+
+  },[allRobots])
+  
   
   return (
     <div className="container-fluid">      
       <div className="row">
-        <NavBar handleSearch = { handleSearch } handleChange = { handleChange  } handleSearchKeyDown = { handleSearchKeyDown } />
-          {
-              robots.map( (robot)=> {
-                  return (
-                      <CardComponent 
-                          key={robot.id}
-                          robot={robot} />
-                  )
-              })
-          }
+        <NavBar 
+          onQuery = { handleSearch } />
+        {/* Pasa todo el array de robots al componente */}
+        <CardComponent robots = {robots} />
       </div>
     </div>
   )
