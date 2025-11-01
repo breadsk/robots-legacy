@@ -6,7 +6,8 @@ export interface robotsProps {
     avatar: string;
     sprite1: string;
     weakness: string;
-    stageImg: string;
+    info:string;
+    phrase:string;
 }
 
 export interface robotsAllProps {
@@ -19,4 +20,10 @@ export interface robotNameProps {
     ok:boolean;
     statusCode:number;
     robot:robotsProps;
+}
+
+export interface robotIdProps {
+    ok:boolean;
+    statusCode:number;
+    robotABuscar:robotsProps;
 }

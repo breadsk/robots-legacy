@@ -5,6 +5,6 @@ interface Props{
 
 export const CardTitleComponent = ({name}:Props) => {
   return (
-    <h5 className="card-title">{name}</h5> 
+    <h5 className="card-title text-center">{name}</h5> 
   )
 }

@@ -58,12 +58,19 @@ export const RobotsApp = () => {
   
   
   return (
-    <div className="container-fluid">      
+    <div 
+      className="container-fluid min-vh-100"
+      style={{
+        backgroundImage: 'url("/react.jpg")',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed',
+        backgroundRepeat: 'no-repeat'
+      }}
+    >      
       <div className="row">
-        <NavBar 
-          onQuery = { handleSearch } />
-        {/* Pasa todo el array de robots al componente */}
-        <CardComponent robots = {robots} />
+        <NavBar onQuery={handleSearch} />        
+        <CardComponent robots={robots} />
       </div>
     </div>
   )
