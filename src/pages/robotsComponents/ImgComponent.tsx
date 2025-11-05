@@ -10,6 +10,11 @@ export const ImgComponent = ({avatar,name}:Props) => {
     <img 
         src={avatar} 
         className="card-img-top" 
-        alt={name} />
+        alt={name}
+        style={{
+          height: '300px',
+          objectFit: "contain"
+        }}
+        />
   )
 }

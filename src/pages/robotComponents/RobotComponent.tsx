@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom"
-import type { robotsProps } from "../../interfaces/robots.interfaces";
 import { capitalizeFirst } from "../../helpers";
-import { getRobotsById } from "../../actions/get-robots-by-id.actions";
+import type { robotsProps } from "../../interfaces/robots.interfaces";
+import { getRobotsById } from "../../actions";
 
 export const RobotComponent = () => {
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ export const RobotComponent = () => {
   const [loading, setLoading] = useState(true);
 
   const goBack = () => {    
-    navigate(-1);
+    navigate('/');
   }
 
   useEffect(() => {
@@ -22,7 +22,7 @@ export const RobotComponent = () => {
           const robot = robotFound.robotABuscar;          
           setRobot(robot || null);
         } catch (error) {
-          console.error("❌ Error fetching robot:", error);
+          console.error("Error fetching robot:", error);
           setRobot(null);
         } finally {
           setLoading(false);
@@ -33,7 +33,7 @@ export const RobotComponent = () => {
       if (!isNaN(numericId)) {
         fetchRobotById(numericId);
       } else {
-        console.error("❌ ID inválido:", id);
+        console.error("ID inválido:", id);
         setLoading(false);
       }
     } else {
@@ -84,6 +84,7 @@ export const RobotComponent = () => {
   const robotPhrase = robot.phrase || 'Sin frase disponible';
   const robotInfo = robot.info || 'Sin información adicional';
 
+  //muestra robot
   return (
     <div className="container-fluid bg-black text-white min-vh-100 py-4">      
       <div className="row mb-4">
@@ -108,21 +109,8 @@ export const RobotComponent = () => {
               src={robotAvatar}
               style={{ maxHeight: '500px', objectFit: 'contain' }}
             />
-          </div>
-          <div className="text-center mt-5">
-             <h5 className="text-warning mb-3">
-                <i className="fa-solid fa-gamepad me-2"></i>
-                Sprite
-              </h5>
-            <img 
-              alt={robotName}
-              className="img-fluid rounded-3 shadow-lg"
-              src={robot.sprite1}
-              style={{ maxHeight: '200px', objectFit: 'contain' }}
-            />
-          </div>
+          </div>         
         </div>
-
         
         <div className="col-lg-6 col-md-12">
           <div className="p-3">
@@ -142,8 +130,7 @@ export const RobotComponent = () => {
             {/* Arma */}
             <div className="mb-3">
               <h5 className="text-warning">
-                <i className="fa-solid fa-gun me-2"></i>
-                Arma Principal
+                <i className="fa-solid fa-gun me-2"></i>Arma Principal
               </h5>
               <p className="fs-5">{robotWeapon}</p>
             </div>

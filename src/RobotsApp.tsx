@@ -20,10 +20,9 @@ export const RobotsApp = () => {
     const fetchData = async() => {
       try{
 
-        const data = await getRobots();
-        const robots = data.robots;
-        setRobots(robots);
-        setAllRobots(robots);
+        const data = await getRobots();        
+        setRobots(data.robots);
+        setAllRobots(data.robots);
 
       }catch(error){
         console.log(`Error en fetchin data: ${ error }`);
@@ -66,11 +65,10 @@ export const RobotsApp = () => {
         backgroundPosition: 'center',
         backgroundAttachment: 'fixed',
         backgroundRepeat: 'no-repeat'
-      }}
-    >      
+      }}>      
       <div className="row">
-        <NavBar onQuery={handleSearch} />        
-        <CardComponent robots={robots} />
+        <NavBar onQuery={ handleSearch  } />
+        <CardComponent robots={ robots  } />
       </div>
     </div>
   )

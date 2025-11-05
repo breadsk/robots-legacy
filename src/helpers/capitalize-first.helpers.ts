@@ -1,5 +1,4 @@
 
-
 export function capitalizeFirst(text:string):string{
     
     if(!text) return '';
