@@ -7,6 +7,7 @@ import { getRobotsById } from "../../actions";
 export const RobotComponent = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  
   const [robot, setRobot] = useState<robotsProps | null>(null);
   const [loading, setLoading] = useState(true);
 
